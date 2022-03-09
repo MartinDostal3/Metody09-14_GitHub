@@ -18,11 +18,23 @@ namespace Metody09_14_GitHub
         }
         double diskriminant(double a, double b, double c)
         {
+            double x1, x2;
             double vysledekD;
             vysledekD = Math.Pow(b, 2) - (4 * a * c);
+            if (vysledekD > 0)
+            {
+                x1 = (-b + Math.Sqrt(vysledekD)) / (2 * a);
+                x2 = (-b - Math.Sqrt(vysledekD)) / (2 * a);
+            }
+            else if (vysledekD == 0)
+            {
+                x1 = (-b - Math.Sqrt(vysledekD)) / (2 * a);
+
+            }
             return vysledekD;
 
         }
+       
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
@@ -31,11 +43,19 @@ namespace Metody09_14_GitHub
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             double a = double.Parse(textBox1.Text);
             double b = double.Parse(textBox2.Text);
             double c = double.Parse(textBox3.Text);
             double diskrimi = diskriminant(a, b, c);
             MessageBox.Show("Diskriminant je: " + diskrimi);
+           
+            
+            if (diskrimi == 0)
+            {
+                MessageBox.Show("Rovnice ma reseni v R");
+            }
+            else MessageBox.Show("Rovnice nema reseni v R");
 
         }
     }
