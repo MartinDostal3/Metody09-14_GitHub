@@ -122,6 +122,39 @@ namespace Metody09_14_GitHub
             return jeAlfanum;
         }
 
+        bool Identicke(string retezec1, string retezec2, out int odlisujiciPozice, out int indexPrvni)
+        {
+            odlisujiciPozice = 0;
+            indexPrvni = -1;
+            bool identicke = false;
+            if (retezec1 == retezec2) identicke = true;
+            else
+            {
+                bool prvniOdlisnost = false;
+                identicke = false;
+                if (retezec1.Length > retezec2.Length)
+                {
+                    string pomocny = retezec1;
+                    retezec1 = retezec2;
+                    retezec2 = pomocny;
+                }
+                for (int i = 0; i < retezec1.Length - 1; ++i)
+                {
+                    if (retezec1[i] != retezec2[i])
+                    {
+                        odlisujiciPozice++;
+                        if (!prvniOdlisnost)
+                        {
+                            indexPrvni = i;
+                            prvniOdlisnost = true;
+                        }
+                    }
+                }
+                if (!prvniOdlisnost) indexPrvni = retezec1.Length;
+                odlisujiciPozice += (retezec2.Length - retezec1.Length);
+            }
+            return identicke;
+        }
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
 
@@ -157,7 +190,7 @@ namespace Metody09_14_GitHub
 
         private void button3_Click(object sender, EventArgs e)
         {
-            string s = "Ahoj 5já jsem 1 matěj12";
+            string s = "Ahoj jak8 2se Msa1";
             string novyretezec = "";
             MessageBox.Show("Počet slov je: " + PocetSlov(s, out novyretezec) + "\nŘetězec bez číslic: " + novyretezec);
         }
@@ -177,9 +210,19 @@ namespace Metody09_14_GitHub
             int pocVel;
             int pocMal;
             int pocJin;
-            string s = "Ahoj 5já jsem 1 matěj12";
+            string s = "Ahoj jak8 2se Msa1";
             if (JeAlfanum(s, out pocMal, out pocVel, out pocJin)) MessageBox.Show("Řetězec je alfanum\nPoc mal:" + pocMal + "\nPoc vel:" + pocVel + "\nPoc jin:" + pocJin);
             else MessageBox.Show("Řetězec není alfanumerický\nPoc mal:" + pocMal + "\nPoc vel:" + pocVel + "\nPoc jin:" + pocJin);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string s1 = "Ahoj jak8 2se Msa1";
+            string s2 = "Ahoj";
+            int odlisPoz = 0;
+            int prvniIndex = 0;
+            if (Identicke(s1, s2, out odlisPoz, out prvniIndex)) MessageBox.Show("Řetězce jsou identické");
+            else MessageBox.Show("Řetězce nejsou identické\nPočet odlišností: " + odlisPoz + "\nPrvní index odlišnosti: " + prvniIndex);
         }
     } 
 }
