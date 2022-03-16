@@ -34,7 +34,26 @@ namespace Metody09_14_GitHub
             return vysledekD;
 
         }
-       
+         bool obsahujeCislici(string retezec, out int cifSoucet, out int cifSoucetLich, out int cifSoucetSud)
+        {
+            int cifra;
+            cifSoucet = 0;
+            cifSoucetSud = 0;
+            cifSoucetLich = 0;
+            bool obsahuje = false;
+            for (int i = 0; i < retezec.Length; ++i)
+            {
+                if (char.IsNumber(retezec[i]))
+                {
+                    obsahuje = true;
+                    cifra = int.Parse(retezec[i].ToString());
+                    cifSoucet += cifra;
+                    if (cifra % 2 == 0) cifSoucetSud += cifra;
+                    else cifSoucetLich += cifra;
+                }
+            }
+            return obsahuje;
+        }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
@@ -57,6 +76,16 @@ namespace Metody09_14_GitHub
             }
             else MessageBox.Show("Rovnice nema reseni v R");
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string s = "Ahoj jak8 2se Msa1";
+            int cifSoucet;
+            int cifSoucetLich;
+            int cifSoucetSud;
+            if (obsahujeCislici(s, out cifSoucet, out cifSoucetLich, out cifSoucetSud)) MessageBox.Show("Obsahuje číslici\nCif Sou. je: " + cifSoucet + "\nCif. Sou. Lich. je: " + cifSoucetLich + "\nCif. Sou. Sud.: " + cifSoucetSud);
+            else MessageBox.Show("Neobsahuje číslo");
         }
     }
 }
