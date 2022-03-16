@@ -102,6 +102,25 @@ namespace Metody09_14_GitHub
             }
             return obsahujeSlovo;
         }
+        bool JeAlfanum(string retezec, out int pocMal, out int pocVel, out int pocJin)
+        {
+            pocMal = 0;
+            pocVel = 0;
+            pocJin = 0;
+            bool jeAlfanum = true;
+            for (int i = 0; i < retezec.Length; i++)
+            {
+                if (char.IsNumber(retezec[i])) { }
+                else if (char.IsLower(retezec[i])) pocMal++;
+                else if (char.IsUpper(retezec[i])) pocVel++;
+                else
+                {
+                    jeAlfanum = false;
+                    pocJin++;
+                }
+            }
+            return jeAlfanum;
+        }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
@@ -151,6 +170,16 @@ namespace Metody09_14_GitHub
             string nejkratsi = "";
             if (ObsahujeSlovo(s, out nejdelsi, out nejkratsi)) MessageBox.Show("Text obsahuje slovo\nNejdelší slovo je: " + nejdelsi + "\nNejkratší slovo je: " + nejkratsi);
             else MessageBox.Show("Žádná slova");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            int pocVel;
+            int pocMal;
+            int pocJin;
+            string s = "Ahoj 5já jsem 1 matěj12";
+            if (JeAlfanum(s, out pocMal, out pocVel, out pocJin)) MessageBox.Show("Řetězec je alfanum\nPoc mal:" + pocMal + "\nPoc vel:" + pocVel + "\nPoc jin:" + pocJin);
+            else MessageBox.Show("Řetězec není alfanumerický\nPoc mal:" + pocMal + "\nPoc vel:" + pocVel + "\nPoc jin:" + pocJin);
         }
     } 
 }
