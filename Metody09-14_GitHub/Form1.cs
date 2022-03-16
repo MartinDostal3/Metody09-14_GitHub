@@ -55,7 +55,7 @@ namespace Metody09_14_GitHub
             return obsahuje;
         }
 
-        int PocetSlov1(string retezec, out string novyretezec)
+        int PocetSlov(string retezec, out string novyretezec)
         {
             string novyretezec1 = retezec;
             char[] separators = { ' ' };
@@ -73,6 +73,34 @@ namespace Metody09_14_GitHub
             }
             novyretezec = retezec;
             return pocetSlov;
+        }
+
+       bool ObsahujeSlovo(string retezec, out string nejdelsi, out string nejkratsi)
+        {
+            bool obsahujeSlovo = false;
+            nejdelsi = "";
+            nejkratsi = "";
+            if (retezec.Length > 0 && retezec != "")
+            {
+                for (int i = 0; i < retezec.Length && !obsahujeSlovo; i++)
+                {
+                    if (retezec[i] != ' ') obsahujeSlovo = true;
+                }
+                if (obsahujeSlovo)
+                {
+                    char[] separators = { ' ' };
+                    string[] s = retezec.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+                    nejdelsi = s[0];
+                    nejkratsi = s[0];
+                    for (int i = 0; i < s.Length; ++i)
+                    {
+                        string slovicko = s[i];
+                        if (slovicko.Length < nejkratsi.Length) nejkratsi = slovicko;
+                        if (slovicko.Length > nejdelsi.Length) nejdelsi = slovicko;
+                    }
+                }
+            }
+            return obsahujeSlovo;
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
@@ -112,9 +140,18 @@ namespace Metody09_14_GitHub
         {
             string s = "Ahoj 5já jsem 1 matěj12";
             string novyretezec = "";
-            MessageBox.Show("Počet slov je: " + PocetSlov1(s, out novyretezec) + "\nŘetězec bez číslic: " + novyretezec);
+            MessageBox.Show("Počet slov je: " + PocetSlov(s, out novyretezec) + "\nŘetězec bez číslic: " + novyretezec);
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            string s = textBox1.Text;
+            string nejdelsi = "";
+            string nejkratsi = "";
+            if (ObsahujeSlovo(s, out nejdelsi, out nejkratsi)) MessageBox.Show("Text obsahuje slovo\nNejdelší slovo je: " + nejdelsi + "\nNejkratší slovo je: " + nejkratsi);
+            else MessageBox.Show("Žádná slova");
+        }
     } 
 }
 
